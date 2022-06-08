@@ -1,0 +1,15 @@
+{
+  "rinkeby":{
+
+    "BNPLContract":{
+        "address": "0xA13Ca57Ec02DE756752A0D7475C881eaA93a59AC"
+    },
+    "wyvern":{
+        "address": "0xdd54d660178b28f6033a953b0e55073cfa7e3744"
+    },
+    "tellerV2":{
+        "address": "0x21d3d541937de52ac5e4af6254d0d2134d9b7c9e"
+    }
+  }
+
+}

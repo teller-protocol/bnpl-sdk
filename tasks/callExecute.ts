@@ -33,6 +33,8 @@ export async function callExecute(): Promise<any> {
     let tellerV2Instance = new Contract(tellerV2Config.address,tellerV2Config.abi, rpcProvider)
     let bnplContractInstance = new Contract(bnplConfig.address,bnplConfig.abi,rpcProvider)
 
+    if(!privateKey) throw new Error('Missing privateKey')
+
     let wallet = new Wallet(privateKey).connect(rpcProvider)
  
 

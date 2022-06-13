@@ -1,33 +1,13 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "resolveJsonModule": true,
-      "lib": [
-        "ES6",
-        "dom"
-      ],
-      "module": "commonjs",
-      "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "declaration": false,
-      "noImplicitAny": false,
-      "removeComments": true,
-      "inlineSourceMap": true,
-      "moduleResolution": "node",
-      "baseUrl": "server",
-      "paths": {
-        "@lib/*": ["/lib/*"],
-        "@dbextensions/*": ["/dbextensions/*"]
-        
-      
-      }
-    },
-    "include": [
-      "scripts/**/*.ts",
-      "src/**/*.ts",
-      "node_modules/lodash-es/**/*.js"
-    ]
-
-    
+  "compilerOptions": {
+    "target": "es6",
+    "resolveJsonModule": true,
+    "lib": ["ES6","dom"],
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports":true,
+    "strict": true,
+    "outDir": "dist",
+    "sourceMap": true 
   }
-  
+}

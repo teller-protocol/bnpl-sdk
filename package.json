@@ -6,6 +6,7 @@
   "main": "index.ts",
   "scripts": {
     "task": "yarn ts-node tasks/index",
+    "build": "tsc",
     "test": "NODE_ENV=test ts-mocha  'test/**/*.spec.ts' --timeout 10000"
   },
   "author": "",

@@ -83,7 +83,8 @@ function parseHowToCall(input) {
 }
 exports.parseHowToCall = parseHowToCall;
 function parseMetadata(input) {
-    return JSON.parse(input);
+    console.log('parsing metadata', input);
+    return JSON.parse(JSON.stringify(input));
 }
 exports.parseMetadata = parseMetadata;
 exports.OpenseaHelper = {

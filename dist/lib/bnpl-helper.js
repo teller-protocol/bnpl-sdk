@@ -65,7 +65,7 @@ function buildExecuteParams(inputData) {
     const minListingTimestamp = Math.round(Date.now() / 1000);
     const listingTime = minListingTimestamp - 300; // + moment.duration(1,'day').asSeconds()
     const expirationTime = listingTime + moment_1.default.duration(2, 'days').asSeconds(); //getMaxOrderExpirationTimestamp()
-    let privateKey = process.env.WALLET_PRIVATE_KEY;
+    //let privateKey = process.env.WALLET_PRIVATE_KEY
     // let wallet = new Wallet(privateKey) 
     const iface = new ethers_1.ethers.utils.Interface(MerkleValidatorABI);
     /*

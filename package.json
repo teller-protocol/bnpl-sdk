@@ -1,7 +1,8 @@
 {
   "name": "bnpl-sdk",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "A set of scripts and tools for Teller BNPL ",
+  "type": "module",
   "main": "index.ts",
   "scripts": {
     "task": "yarn ts-node tasks/index",

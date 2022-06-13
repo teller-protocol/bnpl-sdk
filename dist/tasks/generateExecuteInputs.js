@@ -19,7 +19,8 @@ function generateExecuteInputs() {
     return __awaiter(this, void 0, void 0, function* () {
         let inputData = require('../data/inputOrder.json');
         inputData.lenderAddress = "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681";
-        let outputData = (0, bnpl_helper_1.buildExecuteParams)(inputData);
+        let contractsConfig = require('../data/contractsConfig.json')['rinkeby'];
+        let outputData = (0, bnpl_helper_1.buildExecuteParams)(inputData, contractsConfig);
         try {
             fs_1.default.writeFileSync('data/output.json', JSON.stringify(outputData));
         }

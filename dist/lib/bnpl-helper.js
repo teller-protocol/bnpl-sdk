@@ -13,10 +13,10 @@ const OrderSide = {
     Buy: 0,
     Sell: 1
 };
-let contractsConfig = require('../data/contractsConfig.json')['rinkeby'];
+//let contractsConfig = require('../data/contractsConfig.json')['rinkeby']
 require('dotenv').config();
 const MerkleValidatorABI = require('../abi/MerkleValidator.json');
-function buildExecuteParams(inputData) {
+function buildExecuteParams(inputData, contractsConfig) {
     let bidSubmitArgs = {
         lendingToken: "0xc778417e063141139fce010982780140aa0cd5ab",
         principal: inputData.tellerInputs.loanRequired,

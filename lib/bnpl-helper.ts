@@ -17,7 +17,7 @@ const OrderSide = {
   Sell: 1
 }
 
-let contractsConfig = require('../data/contractsConfig.json')['rinkeby']
+//let contractsConfig = require('../data/contractsConfig.json')['rinkeby']
 
 
 require('dotenv').config()
@@ -96,11 +96,19 @@ export interface CraResponse {
     duration: string
   }
   
+  export interface ContractsConfig {
+
+    BNPLContract: {
+        address:string
+
+    }
+
+  }
 
 
 
 
-export function buildExecuteParams(inputData:CraResponse): any {
+export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): any {
 
     let bidSubmitArgs:BidSubmitArgs = {
       lendingToken: "0xc778417e063141139fce010982780140aa0cd5ab",  //wethAddress rinkeby

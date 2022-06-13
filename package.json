@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "scripts": {
     "task": "yarn ts-node tasks/index",
-    "build": "tsc",
+    "build": "tsc && cp -r abi dist/",
     "test": "NODE_ENV=test ts-mocha  'test/**/*.spec.ts' --timeout 10000"
   },
   "author": "",

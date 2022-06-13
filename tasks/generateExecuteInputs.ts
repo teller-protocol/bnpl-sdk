@@ -8,7 +8,11 @@ export async function generateExecuteInputs(): Promise<any> {
 
   inputData.lenderAddress = "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681"
 
-  let outputData = buildExecuteParams( inputData  )
+  let contractsConfig = require('../data/contractsConfig.json')['rinkeby']
+
+
+
+  let outputData = buildExecuteParams( inputData, contractsConfig  )
 
 
   try {

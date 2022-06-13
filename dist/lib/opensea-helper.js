@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.OpenseaHelper = exports.getMethod = exports.merkleValidatorByNetwork = void 0;
+exports.OpenseaHelper = exports.parseMetadata = exports.parseHowToCall = exports.parseSaleKind = exports.parseFeeMethod = exports.getMethod = exports.merkleValidatorByNetwork = void 0;
 const ethUtil = __importStar(require("ethereumjs-util"));
 const ethers_1 = require("ethers");
 const moment_1 = __importDefault(require("moment"));
@@ -70,6 +70,22 @@ const encodeSellCustom = (schema, asset, address, validatorAddress) => {
         replacementPattern: (0, schema_1.encodeReplacementPattern)(transfer),
     };
 };
+function parseFeeMethod(input) {
+    return input == "0" ? types_1.FeeMethod.ProtocolFee : types_1.FeeMethod.SplitFee;
+}
+exports.parseFeeMethod = parseFeeMethod;
+function parseSaleKind(input) {
+    return input == "0" ? types_1.SaleKind.FixedPrice : types_1.SaleKind.DutchAuction;
+}
+exports.parseSaleKind = parseSaleKind;
+function parseHowToCall(input) {
+    return input == "0" ? types_1.HowToCall.Call : types_1.HowToCall.DelegateCall;
+}
+exports.parseHowToCall = parseHowToCall;
+function parseMetadata(input) {
+    return JSON.parse(input);
+}
+exports.parseMetadata = parseMetadata;
 exports.OpenseaHelper = {
     getPaymentTokensFromApi(openseaAPI, tokenAddress) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -1,4 +1,4 @@
-import { WyvernAtomicMatchParameters } from "./opensea-helper"
+import { parseFeeMethod, parseHowToCall, parseMetadata, parseSaleKind, WyvernAtomicMatchParameters } from "./opensea-helper"
 
 
 
@@ -122,14 +122,14 @@ export function buildExecuteParams(inputData:CraResponse): any {
   
     //this comes from the opensea API 
     let sellOrderWithSignature:SignedOrder = {
-      feeMethod: openSeaData.feeMethod,
+      feeMethod: parseFeeMethod(openSeaData.feeMethod),
       side: OrderSide.Sell,
-      saleKind: openSeaData.saleKind,
-      howToCall: openSeaData.howToCall,
+      saleKind: parseSaleKind(openSeaData.saleKind),
+      howToCall: parseHowToCall(openSeaData.howToCall),
       quantity: OpenseaHelper.makeBigNumber(openSeaData.quantity),
       makerReferrerFee: OpenseaHelper.makeBigNumber(openSeaData.makerReferrerFee),
       waitingForBestCounterOrder: openSeaData.waitingForBestCounterOrder,
-      metadata: openSeaData.metadata,
+      metadata: parseMetadata(openSeaData.metadata),
       exchange: openSeaData.exchange,
       maker: openSeaData.maker,
       taker: openSeaData.taker,
@@ -161,9 +161,9 @@ export function buildExecuteParams(inputData:CraResponse): any {
     const listingTime = minListingTimestamp - 300 // + moment.duration(1,'day').asSeconds()
     const expirationTime = listingTime + moment.duration(2, 'days').asSeconds() //getMaxOrderExpirationTimestamp()
   
-    let privateKey = process.env.WALLET_PRIVATE_KEY
+    //let privateKey = process.env.WALLET_PRIVATE_KEY
   
-    let wallet = new Wallet(privateKey) 
+   // let wallet = new Wallet(privateKey) 
    
   
   
@@ -186,8 +186,9 @@ export function buildExecuteParams(inputData:CraResponse): any {
       console.log('decodedCalldata',decodedCalldata)
     
     //we should do this in our contract 
-  
-    let buyerDecodedCalldata = Object.assign([], decodedCalldata  )
+    
+
+    let buyerDecodedCalldata:any  = Object.assign([], decodedCalldata  )
     buyerDecodedCalldata[1] = bnplContractAddress
       
    
@@ -198,14 +199,14 @@ export function buildExecuteParams(inputData:CraResponse): any {
    
     //we build this ourselves and dont need to sign it 
     let newBuyOrder:UnhashedOrder = {
-      feeMethod: openSeaData.feeMethod,
+      feeMethod: parseFeeMethod(openSeaData.feeMethod),
       side: OrderSide.Buy,
-      saleKind: openSeaData.saleKind,
-      howToCall: openSeaData.howToCall,
+      saleKind: parseSaleKind(openSeaData.saleKind),
+      howToCall: parseHowToCall(openSeaData.howToCall),
       quantity: OpenseaHelper.makeBigNumber(openSeaData.quantity),
       makerReferrerFee: OpenseaHelper.makeBigNumber(openSeaData.makerReferrerFee),
       waitingForBestCounterOrder: openSeaData.waitingForBestCounterOrder,
-      metadata: openSeaData.metadata,
+      metadata: parseMetadata(openSeaData.metadata),
       exchange: openSeaData.exchange,
       maker: bnplContractAddress,  //the buyer (bnpl contract) 
       taker: openSeaData.maker,  // the seller

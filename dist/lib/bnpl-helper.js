@@ -4,10 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildExecuteParams = void 0;
+const opensea_helper_1 = require("./opensea-helper");
 const ethers_1 = require("ethers");
 const moment_1 = __importDefault(require("moment"));
 const constants_1 = require("opensea-js/lib/constants");
-const opensea_helper_1 = require("../lib/opensea-helper");
+const opensea_helper_2 = require("../lib/opensea-helper");
 const OrderSide = {
     Buy: 0,
     Sell: 1
@@ -29,21 +30,21 @@ function buildExecuteParams(inputData) {
     let openSeaData = inputData.openSeaResponse;
     //this comes from the opensea API 
     let sellOrderWithSignature = {
-        feeMethod: openSeaData.feeMethod,
+        feeMethod: (0, opensea_helper_1.parseFeeMethod)(openSeaData.feeMethod),
         side: OrderSide.Sell,
-        saleKind: openSeaData.saleKind,
-        howToCall: openSeaData.howToCall,
-        quantity: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.quantity),
-        makerReferrerFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.makerReferrerFee),
+        saleKind: (0, opensea_helper_1.parseSaleKind)(openSeaData.saleKind),
+        howToCall: (0, opensea_helper_1.parseHowToCall)(openSeaData.howToCall),
+        quantity: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.quantity),
+        makerReferrerFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.makerReferrerFee),
         waitingForBestCounterOrder: openSeaData.waitingForBestCounterOrder,
-        metadata: openSeaData.metadata,
+        metadata: (0, opensea_helper_1.parseMetadata)(openSeaData.metadata),
         exchange: openSeaData.exchange,
         maker: openSeaData.maker,
         taker: openSeaData.taker,
-        makerRelayerFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.makerRelayerFee),
-        takerRelayerFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.takerRelayerFee),
-        makerProtocolFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.makerProtocolFee),
-        takerProtocolFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.takerProtocolFee),
+        makerRelayerFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.makerRelayerFee),
+        takerRelayerFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.takerRelayerFee),
+        makerProtocolFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.makerProtocolFee),
+        takerProtocolFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.takerProtocolFee),
         feeRecipient: openSeaData.feeRecipient,
         target: openSeaData.target,
         calldata: openSeaData.calldata,
@@ -51,11 +52,11 @@ function buildExecuteParams(inputData) {
         staticTarget: openSeaData.staticTarget,
         staticExtradata: openSeaData.staticExtradata,
         paymentToken: openSeaData.paymentToken,
-        basePrice: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.basePrice),
-        extra: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.extra),
-        listingTime: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.listingTime),
-        expirationTime: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.expirationTime),
-        salt: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.salt),
+        basePrice: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.basePrice),
+        extra: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.extra),
+        listingTime: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.listingTime),
+        expirationTime: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.expirationTime),
+        salt: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.salt),
         hash: openSeaData.orderHash,
         v: openSeaData.v,
         r: openSeaData.r,
@@ -65,7 +66,7 @@ function buildExecuteParams(inputData) {
     const listingTime = minListingTimestamp - 300; // + moment.duration(1,'day').asSeconds()
     const expirationTime = listingTime + moment_1.default.duration(2, 'days').asSeconds(); //getMaxOrderExpirationTimestamp()
     let privateKey = process.env.WALLET_PRIVATE_KEY;
-    let wallet = new ethers_1.Wallet(privateKey);
+    // let wallet = new Wallet(privateKey) 
     const iface = new ethers_1.ethers.utils.Interface(MerkleValidatorABI);
     /*
     matchERC721UsingCriteria(
@@ -86,21 +87,21 @@ function buildExecuteParams(inputData) {
     let customBuyReplacementPattern = "0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
     //we build this ourselves and dont need to sign it 
     let newBuyOrder = {
-        feeMethod: openSeaData.feeMethod,
+        feeMethod: (0, opensea_helper_1.parseFeeMethod)(openSeaData.feeMethod),
         side: OrderSide.Buy,
-        saleKind: openSeaData.saleKind,
-        howToCall: openSeaData.howToCall,
-        quantity: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.quantity),
-        makerReferrerFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.makerReferrerFee),
+        saleKind: (0, opensea_helper_1.parseSaleKind)(openSeaData.saleKind),
+        howToCall: (0, opensea_helper_1.parseHowToCall)(openSeaData.howToCall),
+        quantity: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.quantity),
+        makerReferrerFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.makerReferrerFee),
         waitingForBestCounterOrder: openSeaData.waitingForBestCounterOrder,
-        metadata: openSeaData.metadata,
+        metadata: (0, opensea_helper_1.parseMetadata)(openSeaData.metadata),
         exchange: openSeaData.exchange,
         maker: bnplContractAddress,
         taker: openSeaData.maker,
-        makerRelayerFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.takerRelayerFee),
-        takerRelayerFee: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.makerRelayerFee),
-        makerProtocolFee: opensea_helper_1.OpenseaHelper.makeBigNumber(0),
-        takerProtocolFee: opensea_helper_1.OpenseaHelper.makeBigNumber(0),
+        makerRelayerFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.takerRelayerFee),
+        takerRelayerFee: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.makerRelayerFee),
+        makerProtocolFee: opensea_helper_2.OpenseaHelper.makeBigNumber(0),
+        takerProtocolFee: opensea_helper_2.OpenseaHelper.makeBigNumber(0),
         feeRecipient: ethers_1.ethers.constants.AddressZero,
         target: openSeaData.target,
         calldata: modifiedBuyCallData,
@@ -108,11 +109,11 @@ function buildExecuteParams(inputData) {
         staticTarget: openSeaData.staticTarget,
         staticExtradata: openSeaData.staticExtradata,
         paymentToken: openSeaData.paymentToken,
-        basePrice: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.basePrice),
-        extra: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.extra),
-        listingTime: opensea_helper_1.OpenseaHelper.makeBigNumber(openSeaData.listingTime),
-        expirationTime: opensea_helper_1.OpenseaHelper.makeBigNumber(expirationTime),
-        salt: opensea_helper_1.OpenseaHelper.generatePseudoRandomSalt()
+        basePrice: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.basePrice),
+        extra: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.extra),
+        listingTime: opensea_helper_2.OpenseaHelper.makeBigNumber(openSeaData.listingTime),
+        expirationTime: opensea_helper_2.OpenseaHelper.makeBigNumber(expirationTime),
+        salt: opensea_helper_2.OpenseaHelper.generatePseudoRandomSalt()
     };
     let buyOrderWithSignature = Object.assign(newBuyOrder, {
         hash: "",
@@ -120,7 +121,7 @@ function buildExecuteParams(inputData) {
         r: constants_1.NULL_BLOCK_HASH,
         s: constants_1.NULL_BLOCK_HASH
     });
-    let atomicMatchInputs = opensea_helper_1.OpenseaHelper.buildWyvernAtomicMatchParamsFromOrders(buyOrderWithSignature, sellOrderWithSignature);
+    let atomicMatchInputs = opensea_helper_2.OpenseaHelper.buildWyvernAtomicMatchParamsFromOrders(buyOrderWithSignature, sellOrderWithSignature);
     let outputData = {
         bidSubmitArgs,
         lenderAddress,

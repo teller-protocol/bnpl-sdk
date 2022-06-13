@@ -42,8 +42,9 @@
     "orderHash": "0x6c848a3f3d5266c3823d84e7025a83b5a0aecefa3b0d90ed6090507726ce322f"
   },
   "tellerInputs": {
-    "downpayment": "50000000000000000",
+    "downPayment": "50000000000000000",
     "loanRequired": "52659294365455504",
+    "lenderAddress":"0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681",
     "interestRate": 3000,
     "duration": 7776000
   }

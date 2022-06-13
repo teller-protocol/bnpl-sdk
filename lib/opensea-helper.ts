@@ -220,6 +220,25 @@ const encodeSellCustom: Encoder = (
   }
 }
 
+
+export function parseFeeMethod(input:string) : FeeMethod{
+  return input == "0" ? FeeMethod.ProtocolFee : FeeMethod.SplitFee
+}
+
+export function parseSaleKind(input:string) : SaleKind{
+  return input == "0" ? SaleKind.FixedPrice : SaleKind.DutchAuction
+}
+
+export function parseHowToCall(input:string): HowToCall{
+  return input == "0" ? HowToCall.Call : HowToCall.DelegateCall
+}
+
+export function parseMetadata(input:any) : ExchangeMetadata{
+  console.log('parsing metadata', input )
+  return JSON.parse(JSON.stringify(input))
+}
+
+
 export const OpenseaHelper = {
   async getPaymentTokensFromApi(openseaAPI: OpenSeaAPI, tokenAddress: string) {
     const tokens = await openseaAPI.getPaymentTokens({ address: tokenAddress })

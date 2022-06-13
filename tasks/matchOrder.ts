@@ -30,6 +30,9 @@ export async function matchOrder(): Promise<any> {
     let bnplContractInstance = new Contract(bnplConfig.address, bnplConfig.abi, rpcProvider )
     let wyvernContractInstance = new Contract(wyvernConfig.address,wyvernConfig.abi,rpcProvider)
 
+
+    if(!privateKey) throw new Error('Missing privateKey')
+    
     let wallet = new Wallet(privateKey).connect(rpcProvider)
  
                

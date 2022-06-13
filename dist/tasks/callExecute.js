@@ -30,6 +30,8 @@ function callExecute() {
         let rpcProvider = new ethers_1.providers.JsonRpcProvider(rpcURI);
         let tellerV2Instance = new ethers_1.Contract(tellerV2Config.address, tellerV2Config.abi, rpcProvider);
         let bnplContractInstance = new ethers_1.Contract(bnplConfig.address, bnplConfig.abi, rpcProvider);
+        if (!privateKey)
+            throw new Error('Missing privateKey');
         let wallet = new ethers_1.Wallet(privateKey).connect(rpcProvider);
         let value = callData.valueWei;
         console.log('callData.atomicMatchInputs', JSON.stringify(callData.atomicMatchInputs));

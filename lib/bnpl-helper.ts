@@ -27,7 +27,10 @@ const MerkleValidatorABI = require('../abi/MerkleValidator.json')
 
 
 export interface BidSubmitArgs {
-
+    assetContractAddress: string,
+    assetTokenId: string,
+    downPayment: string,
+    lenderAddress: string,
     lendingToken: string
     principal: string,
     duration: string,
@@ -36,12 +39,6 @@ export interface BidSubmitArgs {
 }
  
 
-export interface ExecuteParams {
-    bidSubmitArgs: BidSubmitArgs,
-    lenderAddress: string ,
-    atomicMatchInputs: WyvernAtomicMatchParameters,
-    valueWei: string
-}
 
 export interface CraResponse {
     craSignature: string
@@ -106,13 +103,13 @@ export interface CraResponse {
   }
 
 
-  export interface ExecuteParams {
+ interface ExecuteParams {
     bidSubmitArgs: BidSubmitArgs,
-    lenderAddress: string ,
     atomicMatchInputs: WyvernAtomicMatchParameters,
     valueWei: string,
     buyOrder: UnhashedOrder,
-    sellOrder: SignedOrder
+    sellOrder: SignedOrder,
+    craSignature: string 
   }
 
 
@@ -120,16 +117,16 @@ export interface CraResponse {
 export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): any {
 
     let bidSubmitArgs:BidSubmitArgs = {
+      assetContractAddress: inputData.tellerInputs.assetContractAddress,
+      assetTokenId: inputData.tellerInputs.assetTokenId,
+      downPayment: inputData.tellerInputs.downPayment,
+      lenderAddress: inputData.tellerInputs.lenderAddress,
       lendingToken: "0xc778417e063141139fce010982780140aa0cd5ab",  //wethAddress rinkeby
       principal: inputData.tellerInputs.loanRequired,
       duration: inputData.tellerInputs.duration,
       APR: inputData.tellerInputs.interestRate,
       metadataURI: "ipfs://"
     }
-  
-  
-    let lenderAddress = inputData.tellerInputs.lenderAddress// "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681"
-  
    
   
     //deployed on rinkeby 
@@ -264,12 +261,12 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
    
     
     let outputData : ExecuteParams = {
-      bidSubmitArgs,
-      lenderAddress,
+      bidSubmitArgs, 
       atomicMatchInputs,
       valueWei: inputData.tellerInputs.downPayment,
       buyOrder: newBuyOrder,
-      sellOrder: sellOrderWithSignature
+      sellOrder: sellOrderWithSignature,
+      craSignature: inputData.craSignature
     }
   
     return outputData 

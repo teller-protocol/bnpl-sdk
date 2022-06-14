@@ -103,7 +103,7 @@ export interface CraResponse {
   }
 
 
- interface ExecuteParams {
+ export interface ExecuteParams {
     bidSubmitArgs: BidSubmitArgs,
     atomicMatchInputs: WyvernAtomicMatchParameters,
     valueWei: string,

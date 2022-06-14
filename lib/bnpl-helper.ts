@@ -106,6 +106,15 @@ export interface CraResponse {
   }
 
 
+  export interface ExecuteParams {
+    bidSubmitArgs: BidSubmitArgs,
+    lenderAddress: string ,
+    atomicMatchInputs: WyvernAtomicMatchParameters,
+    valueWei: string,
+    buyOrder: UnhashedOrder,
+    sellOrder: SignedOrder
+  }
+
 
 
 export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): any {
@@ -254,7 +263,7 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
      
    
     
-    let outputData = {
+    let outputData : ExecuteParams = {
       bidSubmitArgs,
       lenderAddress,
       atomicMatchInputs,

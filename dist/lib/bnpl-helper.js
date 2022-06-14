@@ -18,13 +18,16 @@ require('dotenv').config();
 const MerkleValidatorABI = require('../abi/MerkleValidator.json');
 function buildExecuteParams(inputData, contractsConfig) {
     let bidSubmitArgs = {
+        assetContractAddress: inputData.tellerInputs.assetContractAddress,
+        assetTokenId: inputData.tellerInputs.assetTokenId,
+        downPayment: inputData.tellerInputs.downPayment,
+        lenderAddress: inputData.tellerInputs.lenderAddress,
         lendingToken: "0xc778417e063141139fce010982780140aa0cd5ab",
         principal: inputData.tellerInputs.loanRequired,
         duration: inputData.tellerInputs.duration,
         APR: inputData.tellerInputs.interestRate,
         metadataURI: "ipfs://"
     };
-    let lenderAddress = inputData.tellerInputs.lenderAddress; // "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681"
     //deployed on rinkeby 
     let bnplContractAddress = contractsConfig.BNPLContract.address;
     let openSeaData = inputData.openSeaResponse;
@@ -124,11 +127,11 @@ function buildExecuteParams(inputData, contractsConfig) {
     let atomicMatchInputs = opensea_helper_2.OpenseaHelper.buildWyvernAtomicMatchParamsFromOrders(buyOrderWithSignature, sellOrderWithSignature);
     let outputData = {
         bidSubmitArgs,
-        lenderAddress,
         atomicMatchInputs,
         valueWei: inputData.tellerInputs.downPayment,
         buyOrder: newBuyOrder,
-        sellOrder: sellOrderWithSignature
+        sellOrder: sellOrderWithSignature,
+        craSignature: inputData.craSignature
     };
     return outputData;
 }

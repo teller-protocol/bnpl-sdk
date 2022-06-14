@@ -72,7 +72,7 @@ export async function callExecute(): Promise<any> {
     }
     */
 
-    let lenderAddress = callData.lenderAddress
+    let lenderAddress = callData.bidSubmitArgs.lenderAddress
 
 
 

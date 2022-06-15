@@ -61,7 +61,7 @@ function callExecute() {
             bytes32[5] rssMetadata;
         }
         */
-        let lenderAddress = callData.lenderAddress;
+        let lenderAddress = callData.bidSubmitArgs.lenderAddress;
         let borrowerAddress = wallet.address;
         let isApproved = yield tellerV2Instance.hasApprovedMarketForwarder(2, bnplContractInstance.address, lenderAddress);
         console.log('lender has approved BNPL as forwarder: ', isApproved);

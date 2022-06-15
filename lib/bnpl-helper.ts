@@ -121,7 +121,7 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
       assetTokenId: inputData.tellerInputs.assetTokenId,
       downPayment: inputData.tellerInputs.downPayment,
       lenderAddress: inputData.tellerInputs.lenderAddress,
-      lendingToken: "0xc778417e063141139fce010982780140aa0cd5ab",  //wethAddress rinkeby
+      lendingToken: inputData.tellerInputs.lendingToken,  //wethAddress rinkeby
       principal: inputData.tellerInputs.loanRequired,
       duration: inputData.tellerInputs.duration,
       APR: inputData.tellerInputs.interestRate,

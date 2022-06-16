@@ -30,8 +30,7 @@ export interface BidSubmitArgs {
     assetContractAddress: string,
     assetTokenId: string,
     downPayment: string,
-    lenderAddress: string,
-    lendingToken: string
+    lenderAddress: string, 
     principal: string,
     duration: string,
     APR: string,
@@ -86,7 +85,7 @@ export interface CraResponse {
     assetContractAddress:string,
     assetTokenId: string,
     lenderAddress: string,
-    lendingToken: string,
+    
     downPayment: string
     loanRequired: string
     interestRate: string
@@ -120,8 +119,7 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
       assetContractAddress: inputData.tellerInputs.assetContractAddress,
       assetTokenId: inputData.tellerInputs.assetTokenId,
       downPayment: inputData.tellerInputs.downPayment,
-      lenderAddress: inputData.tellerInputs.lenderAddress,
-      lendingToken: inputData.tellerInputs.lendingToken,  //wethAddress rinkeby
+      lenderAddress: inputData.tellerInputs.lenderAddress, 
       principal: inputData.tellerInputs.loanRequired,
       duration: inputData.tellerInputs.duration,
       APR: inputData.tellerInputs.interestRate,

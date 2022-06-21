@@ -22,7 +22,6 @@ function buildExecuteParams(inputData, contractsConfig) {
         assetTokenId: inputData.tellerInputs.assetTokenId,
         downPayment: inputData.tellerInputs.downPayment,
         lenderAddress: inputData.tellerInputs.lenderAddress,
-        lendingToken: "0xc778417e063141139fce010982780140aa0cd5ab",
         principal: inputData.tellerInputs.loanRequired,
         duration: inputData.tellerInputs.duration,
         APR: inputData.tellerInputs.interestRate,
@@ -80,7 +79,26 @@ function buildExecuteParams(inputData, contractsConfig) {
           bytes32 root,
           bytes32[] calldata proof*/
     //0xfb16a595000000000000000000000000b11ca87e32075817c82cc471994943a4290f4a140000000000000000000000000000000000000000000000000000000000000000000000000000000000000000388f486dbcbe05029ba7adf784459b580b4270320000000000000000000000000000000000000000000000000000000000000012000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c00000000000000000000000000000000000000000000000000000000000000000
-    let decodedCalldata = iface.decodeFunctionData("matchERC721UsingCriteria", openSeaData.calldata);
+    /*
+        function matchERC1155UsingCriteria(
+          address from,
+          address to,
+          IERC1155 token,
+          uint256 tokenId,
+          uint256 amount,
+          bytes32 root,
+          bytes32[] calldata proof
+      ) external returns (bool) {*/
+    let decodedCalldata;
+    if (openSeaData.calldata.startsWith('0xfb16a595')) {
+        decodedCalldata = iface.decodeFunctionData("matchERC721UsingCriteria", openSeaData.calldata);
+    }
+    else if (openSeaData.calldata.startsWith('0x96809f9')) {
+        decodedCalldata = iface.decodeFunctionData("matchERC1155UsingCriteria", openSeaData.calldata);
+    }
+    else {
+        throw new Error('Unknown calldata associated with this order '.concat(openSeaData.calldata));
+    }
     // Prepare encoded data to be used in a function call
     console.log('decodedCalldata', decodedCalldata);
     //we should do this in our contract 

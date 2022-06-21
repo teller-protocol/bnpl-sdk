@@ -205,11 +205,32 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
   
   
   let decodedCalldata;
+  let modifiedBuyCallData;
+  let customBuyReplacementPattern;
     
     if(openSeaData.calldata.startsWith('0xfb16a595')){
       decodedCalldata= iface.decodeFunctionData("matchERC721UsingCriteria" ,   openSeaData.calldata  )
+
+      let buyerDecodedCalldata:any  = Object.assign([], decodedCalldata  )
+      buyerDecodedCalldata[1] = bnplContractAddress
+      
+      modifiedBuyCallData = iface.encodeFunctionData( "matchERC721UsingCriteria" , buyerDecodedCalldata )
+      
+      customBuyReplacementPattern = "0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" ;
+  
+
     }else if(openSeaData.calldata.startsWith('0x96809f9')){
       decodedCalldata= iface.decodeFunctionData("matchERC1155UsingCriteria" ,   openSeaData.calldata  )
+
+
+      let buyerDecodedCalldata:any  = Object.assign([], decodedCalldata  )
+      buyerDecodedCalldata[1] = bnplContractAddress
+
+      modifiedBuyCallData = iface.encodeFunctionData( "matchERC1155UsingCriteria" , buyerDecodedCalldata )
+      
+      customBuyReplacementPattern = "0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" ;
+  
+
     }else{      
       throw new Error('Unknown calldata associated with this order '.concat(openSeaData.calldata) )
     }
@@ -220,18 +241,9 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
     
     console.log('decodedCalldata',decodedCalldata)
     
-    //we should do this in our contract 
-    
-
-    let buyerDecodedCalldata:any  = Object.assign([], decodedCalldata  )
-    buyerDecodedCalldata[1] = bnplContractAddress
-      
-    
+    //we should do this in our contract  
+  
    
-    let modifiedBuyCallData = iface.encodeFunctionData( "matchERC721UsingCriteria" , buyerDecodedCalldata )
-  
-    let customBuyReplacementPattern = "0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" ;
-  
    
     //we build this ourselves and dont need to sign it 
     let newBuyOrder:UnhashedOrder = {

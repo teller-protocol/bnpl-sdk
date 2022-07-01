@@ -42,14 +42,16 @@ export async function callExecute(): Promise<any> {
     let wallet = new Wallet(privateKey).connect(rpcProvider)
  
 
-    let value:BigNumber = calculateTotalPrice( executeParams.basicOrderParams )
-
-     
  
 
  
    const submitBidArgs = executeParams.submitBidArgs
 
+
+
+   let value:BigNumber = BigNumber.from(submitBidArgs.downPayment)  //calculateTotalPrice( executeParams.basicOrderParams )
+
+     
 
    let lenderAddress = submitBidArgs.lender
 

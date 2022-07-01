@@ -30,6 +30,7 @@ export function calculateTotalPrice( basicOrderParams: any ): BigNumber {
 
 export function buildExecuteParams(inputData:CraResponse, contractsConfig?: ContractsConfig ): ExecuteParams {
 
+  inputData.submitBidArgs.metadataURI = "ipfs://"
   
       
     // may be able to remove this method as it does nearly nothing now 

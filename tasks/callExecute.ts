@@ -5,9 +5,9 @@ import { BasicOrderParams } from '../lib/types'
 
 require('dotenv').config()
 
+const networkName = "rinkeby"
 
-
-let contractsConfig = require('../data/contractsConfig.json')['rinkeby']
+let contractsConfig = require('../data/contractsConfig.json')[networkName]
 
 
 //was 0x519b957ecaa80C5aEd4C5547Ff2Eac3ff5dE229c
@@ -74,10 +74,12 @@ export async function callExecute(): Promise<any> {
 
     let domainSeparator = await bnplContractInstance.DOMAIN_SEPARATOR()
     console.log({domainSeparator})
+ 
 
-    if( domainSeparator != "0x1c76e430b4dc12c3600a4aa299d979e1ea0cd62b00bbb1ce7fe162ad994800f9" ){
-        throw new Error('Invalid domain separator')
-    }
+
+    if( domainSeparator != "0x8af682fe7bb3292a11e8e4f743e2a1fc7eb2954372bb99a7c1932c8ac00b11a1" ){
+      throw new Error('Invalid domain separator')
+  }
 
     let typeHash = await bnplContractInstance.getTypeHash(
       submitBidArgs,
@@ -86,12 +88,9 @@ export async function callExecute(): Promise<any> {
       basicOrderParams.offerAmount,
       submitBidArgs.totalPurchasePrice,
       basicOrderParams.considerationToken
-    )
+    ) 
 
-    if( typeHash != "0x29ecb55d2bf00f6c8ca7a75d3d9bb2d7a0e1ba83b038d9a6ef290b11b2aba63a" ){
-      throw new Error('Invalid typehash')
-  }
-    
+
     console.log('passing in params',
     submitBidArgs, 
     basicOrderParams, 

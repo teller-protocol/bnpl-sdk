@@ -3,7 +3,7 @@ import { parseFeeMethod, parseHowToCall, parseMetadata, parseSaleKind, WyvernAto
 
 
  
-import {ethers,Wallet} from 'ethers'
+import {BigNumber, ethers,Wallet} from 'ethers'
 
 import moment from 'moment'
 
@@ -113,6 +113,15 @@ export interface CraResponse {
 
 
 
+
+export function calculateTotalPrice( basicOrderParams: any ): string {
+  let amount = BigNumber.from(0)
+
+
+
+  return amount.toString()
+}
+
 export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): any {
 
     let bidSubmitArgs:BidSubmitArgs = {
@@ -219,7 +228,7 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
       customBuyReplacementPattern = "0x00000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" ;
   
 
-    }else if(openSeaData.calldata.startsWith('0x96809f9')){
+    }else if(openSeaData.calldata.startsWith('0x96809f90')){
       decodedCalldata= iface.decodeFunctionData("matchERC1155UsingCriteria" ,   openSeaData.calldata  )
 
 

@@ -2,11 +2,11 @@
 import fs from 'fs'
 import { buildExecuteParams } from '../lib/bnpl-helper';
 
-export async function generateExecuteInputs(): Promise<any> {
+export async function generateExecuteParams(): Promise<any> {
 
-  let inputData = require('../data/inputOrder.json')
+  let inputData = require('../data/inputFromCra.json')
 
-  inputData.lenderAddress = "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681"
+  //inputData.lenderAddress = "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681"
 
   let contractsConfig = require('../data/contractsConfig.json')['rinkeby']
 
@@ -23,6 +23,6 @@ export async function generateExecuteInputs(): Promise<any> {
     console.log('output ', outputData )
   
  
-  return true 
+  return outputData 
 }
 

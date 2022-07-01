@@ -1,6 +1,6 @@
 
 import {Contract, Wallet, providers, utils} from 'ethers'
-import { ExecuteParams } from '../lib/bnpl-helper'
+import { calculateTotalPrice, ExecuteParams } from '../lib/bnpl-helper'
 
 require('dotenv').config()
 
@@ -23,7 +23,7 @@ const bnplConfig = {
 
 export async function callExecute(): Promise<any> {
 
-    let callData:ExecuteParams = require('../data/output.json')
+    let executeParams:ExecuteParams = require('../data/output.json')
 
     let rpcURI = process.env.RINKEBY_RPC_URL
     let privateKey = process.env.WALLET_PRIVATE_KEY
@@ -38,12 +38,12 @@ export async function callExecute(): Promise<any> {
     let wallet = new Wallet(privateKey).connect(rpcProvider)
  
 
-    let value = callData.valueWei
+    let value = calculateTotalPrice( executeParams.basicOrderParams )
 
-    console.log('callData.atomicMatchInputs', JSON.stringify(callData.atomicMatchInputs))
+   // console.log('callData.atomicMatchInputs', JSON.stringify(callData.atomicMatchInputs))
     
 
-    const atomicMatchInputs = {
+    /*const atomicMatchInputs = {
         addrs: callData.atomicMatchInputs[0],
         uints: callData.atomicMatchInputs[1],
         feeMethodsSidesKindsHowToCalls: callData.atomicMatchInputs[2],
@@ -54,29 +54,15 @@ export async function callExecute(): Promise<any> {
         //args 7 and 8 must be null for this to work -- they typically are
         vs: callData.atomicMatchInputs[9],
         rssMetadata: callData.atomicMatchInputs[10],
-      }
+      }*/
 
+ 
 
-    /* 
-    
-    struct AtomicMatchInputs {
-        address[14] addrs;
-        uint256[18] uints;
-        uint8[8] feeMethodsSidesKindsHowToCalls;
-        bytes calldataBuy;
-        bytes calldataSell;
-        bytes replacementPatternBuy;
-        bytes replacementPatternSell;
-        uint8[2] vs;
-        bytes32[5] rssMetadata;
-    }
-    */
-
-    let lenderAddress = callData.bidSubmitArgs.lenderAddress
+   // let lenderAddress = callData.bidSubmitArgs.lenderAddress
 
 
 
-    let borrowerAddress = wallet.address
+    //let borrowerAddress = wallet.address
 
     let isApproved = await tellerV2Instance.hasApprovedMarketForwarder(2, bnplContractInstance.address, lenderAddress)
     console.log('lender has approved BNPL as forwarder: ',isApproved)
@@ -86,7 +72,7 @@ export async function callExecute(): Promise<any> {
         return 
     }
       
-
+    const submitBidArgs = executeParams.tellerInputs
 
 
     //this address needs to approve the forwarder on tellerv2
@@ -100,9 +86,9 @@ export async function callExecute(): Promise<any> {
     let unsignedTx = await bnplContractInstance
     .populateTransaction
     .execute(
-        callData.bidSubmitArgs, 
-        lenderAddress, 
-        atomicMatchInputs , {value, gasLimit, gasPrice} )
+      submitBidArgs, 
+      executeParams.basicOrderParams, 
+      executeParams.craSignature , {value, gasLimit, gasPrice} )
 
     let response = await wallet.sendTransaction(unsignedTx);
     console.log('response',response)

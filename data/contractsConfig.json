@@ -2,10 +2,10 @@
   "rinkeby":{
 
     "BNPLContract":{
-        "address": "0xA13Ca57Ec02DE756752A0D7475C881eaA93a59AC"
+        "address": "0xdda8028461a69b58D72f4da46f4f050Ec2733968"
     },
-    "wyvern":{
-        "address": "0xdd54d660178b28f6033a953b0e55073cfa7e3744"
+    "seaport":{
+        "address": "0x00000000006c3852cbef3e08e8df289169ede581"
     },
     "tellerV2":{
         "address": "0x21d3d541937de52ac5e4af6254d0d2134d9b7c9e"

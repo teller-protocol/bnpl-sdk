@@ -1,14 +1,14 @@
  
 
 import { callExecute } from './callExecute'
-import { generateExecuteInputs } from './generateExecuteInputs'
-import { matchOrder } from './matchOrder'
+import { generateExecuteParams } from './generateExecuteParams'
+//import { matchOrder } from './matchOrder'
 
  
 const taskMap: any = {
-  generateExecuteInputs,
+  generateExecuteParams,
   callExecute,
-  matchOrder
+//  matchOrder
 }
 
 async function init(): Promise<void> {

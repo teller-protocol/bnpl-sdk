@@ -57,10 +57,10 @@ export async function callExecute(): Promise<any> {
       }*/
 
  
-   const submitBidArgs = executeParams.tellerInputs
+   const submitBidArgs = executeParams.submitBidArgs
 
 
-   let lenderAddress = submitBidArgs.lenderAddress
+   let lenderAddress = submitBidArgs.lender
 
 
 

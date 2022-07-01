@@ -1,6 +1,6 @@
 import { BigNumber } from "ethers";
 
-export interface BidSubmitArgs {
+export interface SubmitBidArgs {
     //assetContractAddress: string,
     //assetTokenId: string,
     downPayment: string,
@@ -101,7 +101,7 @@ export interface TellerInputs {
 
  export interface ExecuteParams {
 
-    bidSubmitArgs: BidSubmitArgs,
+    submitBidArgs: SubmitBidArgs,
     basicOrderParams: BasicOrderParams,
     craSignature: string 
 

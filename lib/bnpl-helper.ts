@@ -8,7 +8,7 @@ import moment from 'moment'
 import { NULL_BLOCK_HASH } from 'opensea-js/lib/constants'
 
 import { OpenseaHelper, SignedOrder, UnhashedOrder } from '../lib/opensea-helper'
-import { BidSubmitArgs, ContractsConfig, CraResponse, ExecuteParams } from "./types"
+import { SubmitBidArgs, ContractsConfig, CraResponse, ExecuteParams } from "./types"
  
   
 require('dotenv').config() 
@@ -30,7 +30,7 @@ export function calculateTotalPrice( basicOrderParams: any ): string {
 
 export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): ExecuteParams {
 
-    let bidSubmitArgs:BidSubmitArgs = {
+    let submitBidArgs:SubmitBidArgs = {
 
       lender: inputData.tellerInputs.lenderAddress,
       principal: inputData.tellerInputs.loanRequired,
@@ -58,7 +58,7 @@ export function buildExecuteParams(inputData:CraResponse, contractsConfig: Contr
    
     
     let outputData : ExecuteParams = {
-      bidSubmitArgs, 
+      submitBidArgs: submitBidArgs, 
       basicOrderParams: inputData.basicOrderParams,
       craSignature: inputData.craSignature
     }

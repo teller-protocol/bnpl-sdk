@@ -1,6 +1,6 @@
 
 import {Contract, Wallet, providers, utils} from 'ethers'
-import { calculateTotalPrice, ExecuteParams } from '../lib/bnpl-helper'
+import { calculateTotalPrice } from '../lib/bnpl-helper'
 
 require('dotenv').config()
 

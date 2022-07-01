@@ -1,13 +1,13 @@
 import { BigNumber } from "ethers";
 
 export interface BidSubmitArgs {
-    assetContractAddress: string,
-    assetTokenId: string,
+    //assetContractAddress: string,
+    //assetTokenId: string,
     downPayment: string,
-    lenderAddress: string, 
+    lender: string, 
     principal: string,
     duration: string,
-    APR: string,
+    interestRate: string,
     metadataURI: string
 }
  
@@ -17,6 +17,7 @@ export interface CraResponse {
   craSignature: string;
   openSeaResponse: OpenseaResponse;
   tellerInputs: TellerInputs;
+  basicOrderParams: BasicOrderParams
 }
 
 
@@ -97,4 +98,12 @@ export interface TellerInputs {
     signature: string
  }
 
+
+ export interface ExecuteParams {
+
+    bidSubmitArgs: BidSubmitArgs,
+    basicOrderParams: BasicOrderParams,
+    craSignature: string 
+
+ }
  

@@ -1,6 +1,7 @@
 
 import {Contract, Wallet, providers, utils, BigNumber} from 'ethers'
 import { calculateTotalPrice } from '../lib/bnpl-helper'
+import { BasicOrderParams } from '../lib/types'
 
 require('dotenv').config()
 
@@ -52,7 +53,11 @@ export async function callExecute(): Promise<any> {
 
    let lenderAddress = submitBidArgs.lender
 
+   let basicOrderParams:BasicOrderParams = executeParams.basicOrderParams
 
+   if(!basicOrderParams.offererConduitKey){
+     throw new Error('Missing offererConduitKey')
+   }
 
     //let borrowerAddress = wallet.address
 
@@ -67,7 +72,7 @@ export async function callExecute(): Promise<any> {
 
     console.log('passing in params',
     submitBidArgs, 
-    executeParams.basicOrderParams, 
+    basicOrderParams, 
     executeParams.craSignature 
     )
       

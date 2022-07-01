@@ -14,6 +14,6 @@ On the TellerV2 contract that the BNPL marketplace is built on top of, be sure t
 
 ### Run Tasks
 
-yarn task generateExecuteInputs
+yarn task generateExecuteParams
 
 yarn task callExecute

@@ -29,6 +29,7 @@
         },
         "zoneHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
         "salt": "0x50e95141b84ec7",
+        "offererConduitKey": "0x0000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f0000",
         "fulfillerConduitKey": "0x0000000000000000000000000000000000000000000000000000000000000000",
         "totalOriginalAdditionalRecipients": {
             "type": "BigNumber",
@@ -43,6 +44,48 @@
                 "recipient": "0x8De9C5A032463C561423387a9648c5C7BCC5BC90"
             }
         ],
+        "signature": "0x5c8a6fd29db37f9b53fcf1cce21c62e68ca0684c28e0320cb27e8568210baf37644e1258430b698cfe533334621ddd82a12e46dd184823ab318b8ee6ff0fa2dd1c"
+    },
+    "openSeaResponse": {
+        "parameters": {
+            "offerer": "0x30664d66212e917b7f031d6c488915a2fd185548",
+            "offer": [
+                {
+                    "itemType": 2,
+                    "token": "0x0f44999e4A142D5A5eAc10B61Ed125fe0f498CEd",
+                    "identifierOrCriteria": "40",
+                    "startAmount": "1",
+                    "endAmount": "1"
+                }
+            ],
+            "consideration": [
+                {
+                    "itemType": 0,
+                    "token": "0x0000000000000000000000000000000000000000",
+                    "identifierOrCriteria": "0",
+                    "startAmount": "97500000000000000",
+                    "endAmount": "97500000000000000",
+                    "recipient": "0x30664D66212e917b7f031d6c488915A2fD185548"
+                },
+                {
+                    "itemType": 0,
+                    "token": "0x0000000000000000000000000000000000000000",
+                    "identifierOrCriteria": "0",
+                    "startAmount": "2500000000000000",
+                    "endAmount": "2500000000000000",
+                    "recipient": "0x8De9C5A032463C561423387a9648c5C7BCC5BC90"
+                }
+            ],
+            "startTime": "1656696031",
+            "endTime": "1659374431",
+            "orderType": 2,
+            "zone": "0x00000000E88FE2628EbC5DA81d2b3CeaD633E89e",
+            "zoneHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "salt": "22774533341073095",
+            "conduitKey": "0x0000007b02230091a7ed01230072f7006a004d60a8d4e71d599b8104250f0000",
+            "totalOriginalConsiderationItems": 2,
+            "counter": 0
+        },
         "signature": "0x5c8a6fd29db37f9b53fcf1cce21c62e68ca0684c28e0320cb27e8568210baf37644e1258430b698cfe533334621ddd82a12e46dd184823ab318b8ee6ff0fa2dd1c"
     },
     "tellerInputs": {

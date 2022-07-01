@@ -78,6 +78,19 @@ export async function callExecute(): Promise<any> {
     if( domainSeparator != "0x1c76e430b4dc12c3600a4aa299d979e1ea0cd62b00bbb1ce7fe162ad994800f9" ){
         throw new Error('Invalid domain separator')
     }
+
+    let typeHash = await bnplContractInstance.getTypeHash(
+      submitBidArgs,
+      basicOrderParams.offerToken,
+      basicOrderParams.offerIdentifier,
+      basicOrderParams.offerAmount,
+      submitBidArgs.totalPurchasePrice,
+      basicOrderParams.considerationToken
+    )
+
+    if( typeHash != "0x29ecb55d2bf00f6c8ca7a75d3d9bb2d7a0e1ba83b038d9a6ef290b11b2aba63a" ){
+      throw new Error('Invalid typehash')
+  }
     
     console.log('passing in params',
     submitBidArgs, 

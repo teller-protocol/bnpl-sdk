@@ -1,5 +1,5 @@
 
-import {Contract, Wallet, providers, utils} from 'ethers'
+import {Contract, Wallet, providers, utils, BigNumber} from 'ethers'
 import { calculateTotalPrice } from '../lib/bnpl-helper'
 
 require('dotenv').config()
@@ -21,6 +21,9 @@ const bnplConfig = {
   }
 
 
+
+const marketplaceId = 3 
+
 export async function callExecute(): Promise<any> {
 
     let executeParams:any  = require('../data/output.json')
@@ -38,23 +41,10 @@ export async function callExecute(): Promise<any> {
     let wallet = new Wallet(privateKey).connect(rpcProvider)
  
 
-    let value = calculateTotalPrice( executeParams.basicOrderParams )
+    let value:BigNumber = calculateTotalPrice( executeParams.basicOrderParams )
 
-   // console.log('callData.atomicMatchInputs', JSON.stringify(callData.atomicMatchInputs))
-    
-
-    /*const atomicMatchInputs = {
-        addrs: callData.atomicMatchInputs[0],
-        uints: callData.atomicMatchInputs[1],
-        feeMethodsSidesKindsHowToCalls: callData.atomicMatchInputs[2],
-        calldataBuy: callData.atomicMatchInputs[3],
-        calldataSell: callData.atomicMatchInputs[4],
-        replacementPatternBuy: callData.atomicMatchInputs[5],
-        replacementPatternSell: callData.atomicMatchInputs[6],
-        //args 7 and 8 must be null for this to work -- they typically are
-        vs: callData.atomicMatchInputs[9],
-        rssMetadata: callData.atomicMatchInputs[10],
-      }*/
+     
+ 
 
  
    const submitBidArgs = executeParams.submitBidArgs
@@ -66,13 +56,20 @@ export async function callExecute(): Promise<any> {
 
     //let borrowerAddress = wallet.address
 
-    let isApproved = await tellerV2Instance.hasApprovedMarketForwarder(2, bnplContractInstance.address, lenderAddress)
+    let isApproved = await tellerV2Instance.hasApprovedMarketForwarder(marketplaceId, bnplContractInstance.address, lenderAddress)
     console.log('lender has approved BNPL as forwarder: ',isApproved)
 
     if(!isApproved) {
         console.error('ERROR: lender has not approved bnpl as forwarder ')
         return 
     }
+
+
+    console.log('passing in params',
+    submitBidArgs, 
+    executeParams.basicOrderParams, 
+    executeParams.craSignature 
+    )
       
 
     //this address needs to approve the forwarder on tellerv2
@@ -89,6 +86,8 @@ export async function callExecute(): Promise<any> {
       submitBidArgs, 
       executeParams.basicOrderParams, 
       executeParams.craSignature , {value, gasLimit, gasPrice} )
+
+    console.log({unsignedTx})
 
     let response = await wallet.sendTransaction(unsignedTx);
     console.log('response',response)

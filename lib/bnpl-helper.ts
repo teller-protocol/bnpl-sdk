@@ -15,7 +15,7 @@ require('dotenv').config()
 
 
 
-export function calculateTotalPrice( basicOrderParams: any ): string {
+export function calculateTotalPrice( basicOrderParams: any ): BigNumber {
   let amount = BigNumber.from(basicOrderParams.considerationAmount) 
 
 
@@ -25,7 +25,7 @@ export function calculateTotalPrice( basicOrderParams: any ): string {
   }
 
 
-  return amount.toString()
+  return amount 
 }
 
 export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): ExecuteParams {

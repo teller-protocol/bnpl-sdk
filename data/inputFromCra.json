@@ -1,5 +1,5 @@
 {
-    "craSignature": "0xa495349f5d7cf45a90235c4391748ecc8b07b5a8d5dfa4b75db3bf4ff65c8b6579255d36c782bbd596858f1b83c7b405bea08cbebd288337b54fb2b0564819de1c",
+    "craSignature": "0x1e7abe60cc54d4b7972312ff83c5368d851bde7c150aeee4bb758da69ce1fffc7756d126a2b1862cd625483e0dd1ee2a2c113e04f4ba60e8fd2560d2abb233231c",
     "basicOrderParams": {
         "considerationToken": "0x0000000000000000000000000000000000000000",
         "considerationIdentifier": {
@@ -88,14 +88,12 @@
         },
         "signature": "0x5c8a6fd29db37f9b53fcf1cce21c62e68ca0684c28e0320cb27e8568210baf37644e1258430b698cfe533334621ddd82a12e46dd184823ab318b8ee6ff0fa2dd1c"
     },
-    "tellerInputs": {
-        "assetContractAddress": "0x0f44999e4a142d5a5eac10b61ed125fe0f498ced",
-        "assetTokenId": "40",
-        "lenderAddress": "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681",
+    "submitBidArgs": {
+        "totalPurchasePrice": "100000000000000000",
+        "lender": "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681",
         "downPayment": "50000000000000000",
         "loanRequired": "52659294365455502",
         "interestRate": "3000",
-        "duration": "7776000",
-        "chainId": 4
+        "duration": "7776000"
     }
 }

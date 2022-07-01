@@ -28,37 +28,14 @@ export function calculateTotalPrice( basicOrderParams: any ): BigNumber {
   return amount 
 }
 
-export function buildExecuteParams(inputData:CraResponse, contractsConfig: ContractsConfig ): ExecuteParams {
+export function buildExecuteParams(inputData:CraResponse, contractsConfig?: ContractsConfig ): ExecuteParams {
 
-    let submitBidArgs:SubmitBidArgs = {
-
-      lender: inputData.tellerInputs.lenderAddress,
-      principal: inputData.tellerInputs.loanRequired,
-      downPayment: inputData.tellerInputs.downPayment,
-      duration: inputData.tellerInputs.duration,
-      interestRate: inputData.tellerInputs.interestRate,
-      metadataURI: "ipfs://"
-
-
-      //assetContractAddress: inputData.tellerInputs.assetContractAddress,
-      //assetTokenId: inputData.tellerInputs.assetTokenId,
-      
-       
-      
-      
-    }
-     
-    //deployed on rinkeby 
-    //let bnplContractAddress = contractsConfig.BNPLContract.address
   
-    //let openSeaData = inputData.openSeaResponse
-   
- 
-    
-   
+      
+    // may be able to remove this method as it does nearly nothing now 
     
     let outputData : ExecuteParams = {
-      submitBidArgs: submitBidArgs, 
+      submitBidArgs: inputData.submitBidArgs, 
       basicOrderParams: inputData.basicOrderParams,
       craSignature: inputData.craSignature
     }

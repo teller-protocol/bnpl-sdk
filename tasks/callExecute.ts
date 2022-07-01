@@ -23,7 +23,7 @@ const bnplConfig = {
 
 export async function callExecute(): Promise<any> {
 
-    let executeParams:ExecuteParams = require('../data/output.json')
+    let executeParams:any  = require('../data/output.json')
 
     let rpcURI = process.env.RINKEBY_RPC_URL
     let privateKey = process.env.WALLET_PRIVATE_KEY
@@ -57,8 +57,10 @@ export async function callExecute(): Promise<any> {
       }*/
 
  
+   const submitBidArgs = executeParams.tellerInputs
 
-   // let lenderAddress = callData.bidSubmitArgs.lenderAddress
+
+   let lenderAddress = submitBidArgs.lenderAddress
 
 
 
@@ -72,8 +74,6 @@ export async function callExecute(): Promise<any> {
         return 
     }
       
-    const submitBidArgs = executeParams.tellerInputs
-
 
     //this address needs to approve the forwarder on tellerv2
   //  lenderAddress =  "0xF4dAb24C52b51cB69Ab62cDE672D3c9Df0B39681"

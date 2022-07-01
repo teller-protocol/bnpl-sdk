@@ -16,7 +16,13 @@ require('dotenv').config()
 
 
 export function calculateTotalPrice( basicOrderParams: any ): string {
-  let amount = BigNumber.from(0) 
+  let amount = BigNumber.from(basicOrderParams.considerationAmount) 
+
+
+  for(let additionalRecipient of basicOrderParams.additionalRecipients){
+
+    amount = amount.add( BigNumber.from( additionalRecipient.amount )  )
+  }
 
 
   return amount.toString()
